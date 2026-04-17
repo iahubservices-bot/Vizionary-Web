@@ -1,0 +1,492 @@
+/* --- CONFIGURACIÓN BASE --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap');
+
+:root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --accent: #8a2be2;
+    --accent-secondary: #4b0082;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- CAPA DE FONDO (PARTÍCULAS + IMAGEN) --- */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    /* La clave es que el z-index sea -1, pero que el body no tenga fondo sólido */
+    z-index: -1; 
+    background-color: #000; 
+    background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+}
+
+/* IMPORTANTE: Este bloque debe ser transparente para que pasen las partículas */
+#particles-js::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px) brightness(40%);
+    -webkit-backdrop-filter: blur(5px) brightness(40%);
+    z-index: -2; /* La capa de desenfoque DEBE estar detrás de las partículas */
+}
+
+/* --- HEADER (MENÚ NAVEGACIÓN) --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 10%;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, var(--accent), #f06);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.3s;
+}
+
+.logo:hover {
+    filter: drop-shadow(0 0 10px var(--accent));
+    text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--accent);
+}
+
+/* --- SECCIÓN HERO (INICIO) --- */
+#hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+#hero h1 {
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+#hero p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+}
+
+#btn-action {
+    padding: 1.2rem 3.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(45deg, var(--accent), #ff00c1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.4);
+    transition: all 0.3s ease;
+}
+
+#btn-action:hover {
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 15px 40px rgba(138, 43, 226, 0.6);
+}
+
+/* --- SECCIÓN DE TARJETAS (DASHBOARD) --- */
+#api-content {
+    padding: 100px 10%;
+    position: relative;
+    z-index: 10;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 4rem;
+    font-weight: 700;
+}
+
+.container-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--glass);
+    padding: 2.5rem;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+}
+
+.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-10px);
+    background: rgba(138, 43, 226, 0.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.news-item:hover {
+    background: rgba(138, 43, 226, 0.1);
+    border-left-width: 5px !important;
+    transform: translateX(5px);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card h3 {
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+/* --- CONTACTO --- */
+#contacto {
+    padding: 100px 10%;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+#contact-form {
+    max-width: 500px;
+    margin: 3rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+#contact-form input {
+    padding: 1.2rem;
+    background: var(--bg-secondary);
+    border: 1px solid #333;
+    border-radius: 12px;
+    color: white;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+#contact-form input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+}
+
+#btn-submit {
+    padding: 1.2rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btn-submit:hover {
+    background: var(--accent-secondary);
+}
+
+/* --- FOOTER --- */
+footer {
+    padding: 3rem;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- OPTIMIZACIÓN VIZIONARY MOBILE --- */
+@media (max-width: 768px) {
+    /* Ajuste de Texto en Hero */
+    #hero h1 {
+        font-size: 2.8rem; /* Más pequeño para que no se corte */
+        padding: 0 10px;
+    }
+    
+    .phrase-top {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+
+    /* Navegación Móvil */
+    header {
+        padding: 1rem 5%;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    nav ul {
+        gap: 1rem;
+    }
+
+    /* Tarjetas y Contenedores */
+    #api-content, #iq-test, #contacto {
+        padding: 60px 5%;
+    }
+
+    .container-cards {
+        grid-template-columns: 1fr; /* Una sola columna en celular */
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    /* Ajuste del Test de CI */
+    .options-grid {
+        grid-template-columns: 1fr; /* Botones uno encima de otro */
+    }
+
+    .score-circle {
+        width: 120px;
+        height: 120px;
+        font-size: 2.5rem;
+    }
+
+    /* Formulario */
+    #contact-form {
+        width: 100%;
+    }
+}
+
+/* Ajuste extra para celulares muy pequeños */
+@media (max-width: 480px) {
+    #hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    #btn-action {
+        width: 100%;
+        padding: 1rem;
+    }
+}
+
+/* --- MÓDULO DE TEST INTERACTIVO --- */
+#iq-test {
+    padding: 80px 10%;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+.test-container {
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn-secondary {
+    padding: 1rem 2.5rem;
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--accent);
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+}
+
+.btn-secondary:hover {
+    background: var(--accent);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+#progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), #ff00c1);
+    transition: width 0.4s ease;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.option-btn {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1rem;
+}
+
+.option-btn:hover {
+    background: rgba(138, 43, 226, 0.2);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.score-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid var(--accent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 20px auto;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
+}
+
+@media (max-width: 600px) {
+    .options-grid { grid-template-columns: 1fr; }
+}
+
+#weather-data {
+    min-height: 250px; /* Aumentamos un poco la altura */
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Fondo oscuro para que resalte el widget */
+    border-radius: 15px;
+    padding: 10px;
+    display: block; /* Cambiamos flex por block para widgets */
+}
+
+/* Ajuste para que el widget no se vea cortado */
+.weatherwidget-io {
+    width: 100% !important;
+}
+
+.phrase-top {
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-weight: 300;
+    transition: opacity 0.5s ease; /* ESTA LÍNEA HACE LA MAGIA */
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+    min-height: 20px; /* Evita que el título salte cuando no hay texto */
+}
+
+@keyframes fadeInPhrase {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 0.8; transform: translateY(0); }
+}
+
+/* --- ESTILOS DE NOTICIAS DINÁMICAS --- */
+#news-container {
+    height: 120px; /* Altura fija para evitar que la tarjeta salte */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+#news-data-active {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    padding: 0 10px;
+}
+
+/* Clases para la transición */
+.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mejora al hover de la tarjeta de noticias */
+#news-card-trigger:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+}
