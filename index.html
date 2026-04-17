@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Vizionary | AI Solutions</title>
+    <title>Vizionary | Inteligencia Artificial</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<script src=""https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script src=""script.js"></script>
+<body>
 
-<body> 
     <div id="particles-js"></div>
 
     <header>
@@ -24,117 +25,40 @@
 
     <main>
         <section id="hero">
-            <p id="motivational-phrase" class="phrase-top"></p>
-
-            <h1 id="main-title">Automatiza el Futuro</h1>
-            <p>Soluciones inteligentes para negocios modernos</p>
-            <button id="btn-action">Empezar Ahora</button>
+            <p id="motivational-phrase" class="phrase-top">Cargando visión...</p>
+            <h1>IA QUE TRANSFORMA TU NEGOCIO</h1>
+            <button id="btn-action">EMPEZAR AHORA</button>
         </section>
 
         <section id="api-content">
-            <h2 class="section-title">Centro de Inteligencia</h2>
+            <h2 class="section-title">Nuestras Soluciones</h2>
             <div class="container-cards">
-                
-                <div class="card">
-                    <div class="card-icon">🌤️</div>
-                    <h3>Clima Global</h3>
-                    <div id="weather-data">Conectando con satélites...</div>
-                    <div class="card">
-    <div class="card-icon">🌤️</div>
-    <h3>Clima Global</h3>
-    <div id="weather-data">
-        <iframe 
-    src="https://www.meteoblue.com/es/tiempo/widget/three/trujillo_peru_3691347?geoloc=fixed&nocurrent=0&noforecast=0&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=dark" 
-    frameborder="0" 
-    scrolling="NO" 
-    allowtransparency="true" 
-    sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" 
-    style="width: 100%; height: 230px;"> 
- </iframe>
-           CARGANDO DATOS ATMOSFÉRICOS...
-        </a>
-        <script>
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-        </script>
-        </div>
-</div>
-
+                <div class="card service-card">
+                    <div class="card-icon">🎨</div>
+                    <h3>UI/UX DESIGNER</h3>
+                    <p>Diseño de interfaces modernas y minimalistas de alto impacto.</p>
                 </div>
-
-                <div class="card" id="news-card-trigger" style="cursor: pointer;">
-    <div class="card-icon">🤖</div>
-    <h3>IA News Feed</h3>
-    <div id="news-container">
-        <div id="news-data-active" class="fade-in">Escaneando red...</div>
-    </div>
-    <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 15px;">Clic para expandir lectura</p>
-</div>
-
-                <div class="card">
-                    <div class="card-icon">⚡</div>
-                    <h3>Estado del Sistema</h3>
-                    <div id="system-data">
-                        <p>Status: <span style="color: #00ff00;">Online</span></p>
-                        <p>Latencia: <span id="latency">--</span>ms</p>
-                    </div>
+                <div class="card service-card">
+                    <div class="card-icon">🤖</div>
+                    <h3>AUTOMATIZACIÓN</h3>
+                    <p>Agentes inteligentes y flujos de trabajo autónomos para tu empresa.</p>
                 </div>
-
+                <div class="card service-card">
+                    <div class="card-icon">📱</div>
+                    <h3>APLICATIVOS</h3>
+                    <p>Desarrollo de software a medida con tecnologías de última generación.</p>
+                </div>
+                <div class="card service-card">
+                    <div class="card-icon">📍</div>
+                    <h3>SEO&GEO GOOGLE MAPS</h3>
+                    <p>Posicionamiento local estratégico para dominar tu mercado.</p>
+                </div>
             </div>
         </section>
 
-        <section id="iq-test">
-    <div class="test-container card">
-        <div id="test-intro">
-            <h2>Test de Lógica Vizionary</h2>
-            <p>Evalúa tus capacidades de resolución de problemas frente a nuestra IA.</p>
-            <button id="btn-start-test" class="btn-secondary">Iniciar Prueba</button>
-        </div>
-
-        <div id="test-active" style="display: none;">
-            <div class="progress-bar">
-                <div id="progress-fill"></div>
-            </div>
-            <p id="question-counter">Pregunta 1 de 5</p>
-            <h3 id="question-text">Cargando pregunta...</h3>
-            <div id="options-container" class="options-grid">
-                </div>
-        </div>
-
-        <div id="test-result" style="display: none;">
-            <h2>Análisis Completado</h2>
-            <div class="score-circle">
-                <span id="final-score">0</span>%
-            </div>
-            <p id="result-message">Calculando tu perfil cognitivo...</p>
-            <button id="btn-restart-test" class="btn-secondary" style="margin-top: 20px;">Reintentar</button>
-        </div>
-    </div>
-</section>
-
-        <section id="contacto">
-            <h2>¿Listo para Automatizar?</h2>
-            <form id="contact-form">
-                <input type="text" id="nombre" placeholder="Tu Nombre" required>
-                <input type="email" id="email" placeholder="Tu Correo" required>
-                <button type="submit" id="btn-submit">Enviar Mensaje</button>
-            </form>
-            <p id="form-status"></p>
-        </section>
-    </main>
-
-<section id="blog-detalle" style="display: none; padding: 100px 10%; min-height: 80vh;">
-    <button id="btn-volver" style="background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-bottom: 20px;">← Volver al Centro de Inteligencia</button>
-    <div id="contenido-noticia">
-        </div>
-</section>
-
-    <footer>
-        <p>&copy; 2026 Vizionary. Todos los derechos reservados por IA Labs Inc.</p>
-        <p><a href="#contacto" style="color: var(--accent); text-decoration: none;">Contáctanos</a></p>
-    </footer>
+        </main>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
-
 </body>
 </html>
