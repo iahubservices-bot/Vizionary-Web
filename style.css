@@ -1,12 +1,14 @@
 /* ==========================================================
-   1. VARIABLES Y RESET (Base del Sistema)
+   1. VARIABLES Y RESET
    ========================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap');
 
 :root {
     --bg-dark: #000000;
-    --accent: #8a2be2; /* Morado Vizionary */
+    --accent: #8a2be2; 
     --accent-glow: rgba(138, 43, 226, 0.5);
+    --neon-green: #25ff7c; 
+    --green-glow: rgba(0, 255, 102, 0.4);
     --glass: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     --header-height: 80px;
@@ -31,7 +33,7 @@ body {
 }
 
 /* ==========================================================
-   2. CAPA DE PARTÍCULAS (Fondo Interactivo)
+   2. CAPA DE FONDO, PARTÍCULAS Y SOL (Corrección de Capas)
    ========================================================== */
 #particles-js {
     position: fixed;
@@ -39,29 +41,67 @@ body {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 0; /* Al fondo absoluto */
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
-                      url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072');
+    z-index: -1;
+    background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
+    background-color: #1d1c1c;
+    /* Aumentamos un poco el brillo base de la imagen */
+    filter: brightness(1.1) contrast(1.1);
+}
+
+/* El canvas de las partículas debe estar por encima de la imagen */
+#particles-js canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2; 
+}
+
+/* La máscara del sol debe estar sobre las partículas para darles color horaria */
+#sun-light {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3; 
+    pointer-events: none;
+    mix-blend-mode: overlay; 
+    transition: background 10s linear;
+}
+
+/* Capa de contraste para asegurar legibilidad */
+/* Capa de contraste CORREGIDA (Más clara y vibrante) */
+#particles-js::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* CAMBIO CLAVE: Usamos un radial gradient más suave y transparente al centro */
+    /* El centro (0%) es casi transparente, los bordes (100%) son un gris azulado sutil */
+    background: radial-gradient(circle, rgba(50, 48, 48, 0.1) 0%, rgba(43, 59, 108, 0.5) 100%);
+    z-index: -1;
 }
 
 /* ==========================================================
-   3. ESTRUCTURA DE CAPAS (Para que el mouse traspase el texto)
+   3. ESTRUCTURA DE CAPAS (Interacción)
    ========================================================== */
 header, main, section, footer {
     position: relative;
-    z-index: 10; 
-    pointer-events: none; /* El mouse "atraviesa" el texto para tocar partículas */
+    z-index: 10; /* Por encima del sol y partículas */
+    pointer-events: none; 
 }
 
-/* Elementos que SÍ deben recibir clicks */
-nav a, button, input, .card, .option-btn, .logo {
+/* Asegurar que el contenido interactivo funcione */
+nav a, button, input, textarea, .card, .logo, .option-btn {
     pointer-events: all !important;
 }
 
 /* ==========================================================
-   4. HEADER (Navegación Fija)
+   4. HEADER (Navegación)
    ========================================================== */
 header {
     display: flex;
@@ -69,7 +109,7 @@ header {
     align-items: center;
     padding: 0 10%;
     height: var(--header-height);
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--glass-border);
@@ -81,10 +121,10 @@ header {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 800;
     letter-spacing: 3px;
-    background: linear-gradient(45deg, #fff, var(--accent));
+    background: linear-gradient(45deg, #ffffff, var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-decoration: none;
@@ -97,21 +137,21 @@ nav ul {
 }
 
 nav a {
-    color: #ffffff;
+    color: #ffffff !important;
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
     transition: 0.3s;
 }
 
 nav a:hover {
-    color: var(--accent);
+    color: var(--neon-green) !important;
+    text-shadow: 0 0 10px var(--green-glow);
 }
 
 /* ==========================================================
-   5. HERO SECTION (Bienvenida)
+   5. HERO SECTION
    ========================================================== */
 #hero {
     height: 100vh;
@@ -121,25 +161,26 @@ nav a:hover {
     align-items: center;
     text-align: center;
     padding: 0 5%;
-    /* No hace falta padding-top extra por el flex center, pero lo asegura */
 }
 
 .phrase-top {
-    font-size: 0.9rem;
-    color: var(--accent);
+    font-size: 1rem;
+    color: var(--neon-green) !important;
     text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 1rem;
+    letter-spacing: 5px;
+    margin-bottom: 0.5rem;
     font-weight: 700;
-    opacity: 0.8;
+    text-shadow: 0 0 15px var(--green-glow);
 }
 
 #hero h1 {
-    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
     font-weight: 800;
+    color: #ffffff;
+    max-width: 950px;
     line-height: 1.1;
-    max-width: 900px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
 }
 
 #btn-action {
@@ -160,11 +201,9 @@ nav a:hover {
 }
 
 /* ==========================================================
-   6. SECCIÓN SERVICIOS (Cards)
+   6. SECCIÓN SERVICIOS (Cards Glassmorphism)
    ========================================================== */
-#api-content {
-    padding: 100px 10%;
-}
+#api-content { padding: 100px 10%; }
 
 .section-title {
     font-size: 2.5rem;
@@ -180,49 +219,76 @@ nav a:hover {
 }
 
 .card {
-    background: var(--glass);
-    padding: 3.5rem 2rem;
-    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2.5rem;
     text-align: center;
     transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card:hover {
-    border-color: var(--accent);
-    transform: translateY(-15px);
-    background: rgba(138, 43, 226, 0.1);
+    border-color: var(--neon-green);
+    transform: translateY(-12px);
+    box-shadow: 0 10px 30px rgba(0, 255, 102, 0.2);
 }
 
-.card-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.card h3 {
-    margin-bottom: 1rem;
-    color: var(--accent);
-    font-weight: 800;
-}
+.card-icon { font-size: 3.5rem; margin-bottom: 1.5rem; }
+.card h3 { margin-bottom: 1rem; color: var(--accent); font-weight: 800; }
 
 /* ==========================================================
-   7. RESPONSIVE (Móviles)
+   7. CONTACTO Y RESPONSIVE
    ========================================================== */
+.contact-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--glass);
+    padding: 1.5rem;
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 1rem;
+}
+
+#contact-form {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#contact-form input, #contact-form textarea {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    color: white;
+}
+
+#btn-submit {
+    padding: 1rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
-    header {
-        padding: 0 5%;
-    }
-    
-    nav ul {
-        display: none; /* Opcional: ocultar menú en móvil o hacerlo hamburguesa */
-    }
-
-    #hero h1 {
-        font-size: 2.8rem;
-    }
-
-    .container-cards {
-        grid-template-columns: 1fr;
-    }
+    nav ul { display: none; }
+    #hero h1 { font-size: 2.5rem; }
+    .contact-wrapper { flex-direction: column; }
 }
