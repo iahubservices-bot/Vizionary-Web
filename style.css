@@ -292,3 +292,384 @@ nav a:hover {
     #hero h1 { font-size: 2.5rem; }
     .contact-wrapper { flex-direction: column; }
 }
+
+/* ==========================================================
+   WIDGET: SATÉLITE MODERNO EN ÓRBITA GLOBAL
+   ========================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+    --sat-panel-color: rgba(0, 255, 102, 0.2); /* Verde Neón Transparente */
+    --sat-panel-border: #00ff66; /* Verde Neón Brillante */
+    --sat-core-color: #1a1a1a;
+    --sat-light-red: #ff3333;
+}
+
+/* 2a. Contenedor de la Órbita (Ocupa toda la pantalla) */
+.satellite-orbit-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5; /* Por encima de la Tierra, por debajo del texto */
+    pointer-events: none; /* No interrumpe los clics */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* 2b. El Satélite (Diseño Wireframe con Luces) */
+.satellite-modern {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* La magia de la órbita elíptica */
+    animation: orbitarGlobal 25s linear infinite; 
+    filter: drop-shadow(0 0 10px var(--sat-panel-border));
+}
+
+/* Cuerpo Central */
+.sat-core {
+    width: 16px;
+    height: 16px;
+    background: var(--sat-core-color);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 2px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Luz de Pulso Roja (Simulando transmisión) */
+.sat-light-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px;
+    height: 4px;
+    background: var(--sat-light-red);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--sat-light-red);
+    animation: pulsoSatelite 1.5s ease-in-out infinite;
+}
+
+/* Paneles Solares (Estilo Wireframe Neón) */
+.sat-panel {
+    width: 25px;
+    height: 12px;
+    background: var(--sat-panel-color);
+    border: 1px solid var(--sat-panel-border);
+    position: absolute;
+    z-index: 1;
+}
+
+.sat-panel.left {
+    left: -20px;
+    border-radius: 2px 0 0 2px;
+    transform: skewY(-5deg);
+}
+
+.sat-panel.right {
+    right: -20px;
+    border-radius: 0 2px 2px 0;
+    transform: skewY(5deg);
+}
+
+/* Antena (Detalle técnico) */
+.sat-antenna {
+    position: absolute;
+    top: -10px;
+    width: 1px;
+    height: 10px;
+    background: rgba(255,255,255,0.5);
+}
+
+.sat-antenna::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -1px;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+/* ==========================================================
+   ANIMACIONES (Órbita y Pulso)
+   ========================================================== */
+
+/* Animación de Pulso de Luz */
+@keyframes pulsoSatelite {
+    0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+/* La Gran Órbita Global Elíptica */
+@keyframes orbitarGlobal {
+    0% {
+        transform: rotate(0deg) translateX(45vw) rotate(0deg) scale(0.7);
+        opacity: 0.8;
+    }
+    25% {
+        /* Pasa por detrás de la Tierra (simulado con escala y opacidad) */
+        transform: rotate(90deg) translateX(30vw) rotate(-90deg) scale(0.5);
+        opacity: 0.4;
+    }
+    50% {
+        /* Reaparece por el otro lado */
+        transform: rotate(180deg) translateX(45vw) rotate(-180deg) scale(0.7);
+        opacity: 0.8;
+    }
+    75% {
+        /* Pasa por "delante" del usuario, más grande y brillante */
+        transform: rotate(270deg) translateX(55vw) rotate(-270deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(360deg) translateX(45vw) rotate(-360deg) scale(0.7);
+        opacity: 0.8;
+    }
+}
+
+#global-vizionary-container {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Ajusta según necesites */
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+    margin: 50px 0;
+}
+
+#globe-gui {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    border-left: 2px solid var(--neon-green);
+    pointer-events: none;
+}
+
+#vizionary-globe {
+    cursor: grab;
+}
+
+#vizionary-globe:active {
+    cursor: grabbing;
+}
+
+#hero {
+    position: relative;
+    overflow: hidden;
+    background-color: #000; /* Asegura fondo negro tras el código */
+}
+
+#code-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Por delante de la imagen de la tierra si quieres, o -1 para detrás */
+    pointer-events: none;
+
+    /* EFECTO FADE: Desvanece el código arriba (0-20%) y abajo (80-100%) */
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0) 0%, 
+        rgba(0,0,0,1) 20%, 
+        rgba(0,0,0,1) 80%, 
+        rgba(0,0,0,0) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0) 0%, 
+        rgba(0,0,0,1) 20%, 
+        rgba(0,0,0,1) 80%, 
+        rgba(0,0,0,0) 100%
+    );
+    opacity: 0.4; /* Ajusta para que no compita con la legibilidad del título */
+}
+
+/* Asegura que el texto esté sobre el canvas */
+#hero h1, #hero .phrase-top, #hero #btn-action, .system-widget {
+    position: relative;
+    z-index: 10;
+}
+
+/* ==========================================================
+   SECCIÓN CONTACTO: TERMINAL DE DIAGNÓSTICO
+   ========================================================== */
+.terminal-section {
+    padding: 80px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.terminal-window {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(10, 15, 20, 0.85); /* Oscuro azulado técnico */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 255, 102, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(0, 255, 102, 0.05);
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.terminal-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mac-btns { display: flex; gap: 6px; margin-right: 15px; }
+.mac-btns .btn { width: 12px; height: 12px; border-radius: 50%; }
+.btn.red { background: #ff5f56; }
+.btn.yellow { background: #ffbd2e; }
+.btn.green { background: #27c93f; }
+
+.terminal-header .title {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.terminal-body {
+    padding: 30px;
+    min-height: 250px;
+}
+
+/* Pasos del Formulario */
+.term-step {
+    display: none;
+    animation: fadeInTerm 0.3s ease forwards;
+}
+.term-step.active { display: block; }
+
+@keyframes fadeInTerm {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.sys-msg {
+    color: #8a2be2; /* Morado eléctrico para el sistema */
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.input-line {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-line label {
+    color: #00ff66; /* Verde Neón */
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.input-line input, .input-line select {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 255, 102, 0.3);
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 5px 0;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-line input:focus, .input-line select:focus {
+    border-bottom: 1px solid #00ff66;
+}
+
+.input-line select {
+    color: #00ff66;
+    cursor: pointer;
+}
+.input-line select option { background: #0a0f14; } /* Fondo oscuro para opciones */
+
+/* Botones Terminal */
+.btn-group { display: flex; gap: 15px; margin-top: 30px; }
+
+.btn-terminal {
+    background: transparent;
+    color: #00ff66;
+    border: 1px solid #00ff66;
+    padding: 8px 20px;
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    margin-top: 15px;
+}
+
+.btn-terminal:hover, .btn-terminal.highlight {
+    background: #00ff66;
+    color: #000;
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+}
+
+.btn-terminal.secondary {
+    border-color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.7);
+}
+.btn-terminal.secondary:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+/* Logs de Procesamiento */
+.log-line {
+    color: #fff;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+.log-line .status { color: #00ff66; }
+.log-line .warn { color: #ffbd2e; }
+.blink-cursor { animation: blink 1s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.action-alert-container {
+    height: 60px; /* Espacio reservado para que no salte el contenido */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.fade-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    color: #ff2273; /* Tu verde neón */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Duración del fade */
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+}
+
+.fade-text.visible {
+    opacity: 1;
+}

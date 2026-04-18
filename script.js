@@ -1,14 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('--- Vizionary System Initialized ---');
 
+    // Inicializar Lluvia de Código (Canvas)
+    initCodeRain();
+
     /* ==========================================================
        1. CONFIGURACIÓN DE PARTÍCULAS (RED NEURONAL)
        ========================================================== */
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
             "particles": {
-                "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#00ff66" }, // Verde Neón por defecto
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#00ff66" },
                 "shape": { "type": "circle" },
                 "opacity": { "value": 0.5 },
                 "size": { "value": 3 },
@@ -26,9 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 "events": {
                     "onhover": { "enable": true, "mode": "grab" },
                     "onclick": { "enable": true, "mode": "push" }
-                },
-                "modes": {
-                    "grab": { "line_linked": { "opacity": 1 } }
                 }
             },
             "retina_detect": true
@@ -36,53 +36,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================
-       2. LÓGICA HORARIA (Iluminación y Color de Partículas)
+       2. LÓGICA HORARIA (Actualizada para mayor fluidez)
        ========================================================== */
     function actualizarAmbienteVizionary() {
         const ahora = new Date();
         const hora = ahora.getHours();
-        const minutos = ahora.getMinutes();
-        const tiempoDecimal = hora + (minutos / 60);
         const esNoche = (hora >= 18 || hora < 6);
         
-        // 2a. Iluminación de la Tierra
-        const anguloSol = (tiempoDecimal / 24) * 100; // Porcentaje de posición
         const tierra = document.getElementById('particles-js');
-        let sunOverlay = document.getElementById('sun-light');
-
-        if (!sunOverlay) {
-            sunOverlay = document.createElement('div');
-            sunOverlay.id = 'sun-light';
-            document.body.appendChild(sunOverlay);
-        }
-
-        if (!esNoche) {
-            // DÍA
-            sunOverlay.style.background = `radial-gradient(circle at ${anguloSol}% 30%, rgba(255,255,200,0.3) 0%, rgba(0,0,0,0.6) 70%)`;
-            if(tierra) tierra.style.filter = "brightness(1) contrast(1.1)";
-        } else {
-            // NOCHE
-            sunOverlay.style.background = `radial-gradient(circle at ${anguloSol}% 70%, rgba(0,255,102,0.1) 0%, rgba(0,0,0,0.85) 80%)`;
+        
+        if (esNoche) {
             if(tierra) tierra.style.filter = "brightness(0.7) contrast(1.3)";
+        } else {
+            if(tierra) tierra.style.filter = "brightness(1) contrast(1.1)";
         }
 
-        // 2b. Color de Partículas según horario
+        // Cambio de color de partículas en tiempo real
         if (window.pJSDom && window.pJSDom.length > 0) {
             const pJS = window.pJSDom[0].pJS;
             const nuevoColor = esNoche ? "#00ff66" : "#ffffff";
-            
             pJS.particles.color.value = nuevoColor;
             pJS.particles.line_linked.color = nuevoColor;
+            // Forzar actualización visual
             pJS.fn.particlesRefresh();
         }
     }
-
-    // Ejecutar cada minuto y al cargar
-    setInterval(actualizarAmbienteVizionary, 60000);
     actualizarAmbienteVizionary();
+    setInterval(actualizarAmbienteVizionary, 60000);
 
     /* ==========================================================
-       3. SISTEMA DE FRASES DINÁMICAS (HERO)
+       3. MONITOR DE LATENCIA (Con protección)
+       ========================================================== */
+    const latencyEl = document.getElementById('latency');
+    if (latencyEl) {
+        setInterval(() => {
+            const ms = Math.floor(Math.random() * (35 - 12 + 1) + 12);
+            latencyEl.innerText = ms + "ms"; // Añadido "ms" para claridad
+            latencyEl.style.color = ms > 30 ? '#ff4b4b' : '#00ffcc';
+        }, 3000);
+    }
+
+    /* ==========================================================
+       4. SISTEMA DE FRASES DINÁMICAS
        ========================================================== */
     const frasesVizionary = [
         "El futuro pertenece a quienes lo automatizan.",
@@ -90,104 +85,199 @@ document.addEventListener('DOMContentLoaded', () => {
         "Tu visión, nuestra inteligencia artificial.",
         "Escalando negocios con lógica de vanguardia.",
         "Vizionary: Construyendo el mañana, hoy.",
-        "La eficiencia es la base de la libertad empresarial.",
         "No predigas el futuro, prográmalo."
     ];
 
     function actualizarFrase() {
         const fraseEl = document.getElementById('motivational-phrase');
-        if (!fraseEl) return;
-        
-        fraseEl.style.opacity = 0;
-        setTimeout(() => {
-            const indiceAleatorio = Math.floor(Math.random() * frasesVizionary.length);
-            fraseEl.innerText = frasesVizionary[indiceAleatorio];
-            fraseEl.style.opacity = 0.8;
-        }, 500);
-    }
-
-    setInterval(actualizarFrase, 4500);
-    actualizarFrase();
-
-    /* ==========================================================
-       4. MONITOR DE LATENCIA
-       ========================================================== */
-    const latencyEl = document.getElementById('latency');
-    if (latencyEl) {
-        setInterval(() => {
-            const ms = Math.floor(Math.random() * (35 - 12 + 1) + 12);
-            latencyEl.innerText = ms;
-            latencyEl.style.color = ms > 30 ? '#ff4b4b' : '#00ffcc';
-        }, 3000);
-    }
-
-    /* ==========================================================
-       5. MÓDULO TEST DE CI
-       ========================================================== */
-    const questions = [
-        { q: "¿Qué número sigue: 2, 6, 12, 20, ...?", options: ["28", "30", "24", "32"], answer: 1 },
-        { q: "Si el bate y la bola cuestan $1.10 y el bate cuesta $1 más, ¿cuánto cuesta la bola?", options: ["$0.10", "$0.05", "$0.01", "$0.15"], answer: 1 },
-        { q: "Si tres gatos cazan tres ratones en 3 minutos, ¿cuánto tarda un gato en cazar uno?", options: ["1 min", "3 min", "9 min", "6 min"], answer: 1 }
-    ];
-
-    let currentIdx = 0;
-    let score = 0;
-
-    const btnStart = document.getElementById('btn-start-test');
-    if (btnStart) {
-        btnStart.addEventListener('click', () => {
-            document.getElementById('test-intro').style.display = 'none';
-            document.getElementById('test-active').style.display = 'block';
-            loadQuestion();
-        });
-    }
-
-    function loadQuestion() {
-        const qData = questions[currentIdx];
-        const qText = document.getElementById('question-text');
-        const progress = document.getElementById('progress-fill');
-        const container = document.getElementById('options-container');
-
-        if(qText) qText.innerText = qData.q;
-        if(progress) progress.style.width = `${((currentIdx) / questions.length) * 100}%`;
-        if(container) {
-            container.innerHTML = '';
-            qData.options.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerText = opt;
-                btn.onclick = () => {
-                    if (i === qData.answer) score++;
-                    currentIdx++;
-                    if (currentIdx < questions.length) loadQuestion();
-                    else showResults();
-                };
-                container.appendChild(btn);
-            });
+        if (fraseEl) {
+            fraseEl.style.transition = "opacity 0.5s ease";
+            fraseEl.style.opacity = 0;
+            setTimeout(() => {
+                const indiceAleatorio = Math.floor(Math.random() * frasesVizionary.length);
+                fraseEl.innerText = frasesVizionary[indiceAleatorio];
+                fraseEl.style.opacity = 0.8;
+            }, 500);
         }
     }
-
-    function showResults() {
-        document.getElementById('test-active').style.display = 'none';
-        document.getElementById('test-result').style.display = 'block';
-        const finalScoreEl = document.getElementById('final-score');
-        if(finalScoreEl) finalScoreEl.innerText = Math.round((score / questions.length) * 100);
-    }
+    setInterval(actualizarFrase, 5000);
 
     /* ==========================================================
-       6. FORMULARIO DE CONTACTO
+       5. FORMULARIO DE CONTACTO
        ========================================================== */
     const form = document.getElementById('contact-form');
     if (form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const btn = document.getElementById('btn-submit');
-            btn.innerText = 'PROCESANDO...';
-            setTimeout(() => {
-                btn.innerText = '✓ ENVIADO';
-                btn.style.background = '#00ffcc';
-                form.reset();
-            }, 2000);
+            if(btn) {
+                btn.innerText = 'ENVIANDO...';
+                btn.disabled = true;
+                setTimeout(() => {
+                    btn.innerText = '✓ ENVIADO CON ÉXITO';
+                    btn.style.background = '#00ff66';
+                    btn.style.color = '#000';
+                    form.reset();
+                }, 2000);
+            }
         });
     }
 });
+
+/* ==========================================================
+   6. FUNCIÓN DE LLUVIA DE CÓDIGO (Optimización de Rendimiento)
+   ========================================================== */
+function initCodeRain() {
+    const colors = ["#00ff66", "#ff0051", "#8a2be2", "#ffffff"]; 
+// Verde Neón, Turquesa, Morado Eléctrico y Blanco
+    const canvas = document.getElementById('code-rain');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    const codeChars = "publicstaticvoidmain(String[]args)System.out.println{if}{else}return;01<>!=+-*/%&^";
+    const charArray = codeChars.split("");
+    const fontSize = 16;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(0).map(() => Math.random() * -100);
+
+    function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = fontSize + "px 'Courier New', monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = charArray[Math.floor(Math.random() * charArray.length)];
+        
+        // --- CAMBIO AQUÍ: COLORES ALEATORIOS DE LA PALETA ---
+        // Elegimos un color al azar del array 'colors'
+        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Un toque extra: que la "cabeza" de la gota siempre brille más
+        if (Math.random() > 0.95) ctx.fillStyle = "#ffffff"; 
+
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+        ctx.fillText(text, x, y);
+
+        if (y > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+        drops[i]++;
+    }
+}
+    setInterval(draw, 35);
+}
+
+/* ==========================================================
+   LÓGICA DEL FORMULARIO TERMINAL (BENCHMARK US)
+   ========================================================== */
+
+function nextStep(current, next) {
+    // Validar campos requeridos antes de avanzar
+    const currentStepDiv = document.getElementById(`step-${current}`);
+    const inputs = currentStepDiv.querySelectorAll('input[required]');
+    let isValid = true;
+
+    inputs.forEach(input => {
+        if (!input.checkValidity()) {
+            input.reportValidity();
+            isValid = false;
+        }
+    });
+
+    if (isValid) {
+        document.getElementById(`step-${current}`).classList.remove('active');
+        document.getElementById(`step-${next}`).classList.add('active');
+    }
+}
+
+function prevStep(current, prev) {
+    document.getElementById(`step-${current}`).classList.remove('active');
+    document.getElementById(`step-${prev}`).classList.add('active');
+}
+
+// Intercepción del Envio (Simulación de Procesamiento AI)
+const aiForm = document.getElementById('ai-lead-form');
+if (aiForm) {
+    aiForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Evita recargar la página
+
+        // Ocultar paso 3, mostrar pantalla de carga
+        document.getElementById('step-3').classList.remove('active');
+        const processingDiv = document.getElementById('step-processing');
+        processingDiv.classList.add('active');
+        
+        const logsContainer = document.getElementById('terminal-logs');
+        logsContainer.innerHTML = ''; // Limpiar logs
+
+        // Secuencia de logs técnicos simulados (Genera autoridad)
+        const sysLogs = [
+            "<span class='status'>[OK]</span> Datos de Lead interceptados y encriptados.",
+            "<span class='warn'>[!]</span> Analizando viabilidad de proyecto...",
+            "<span class='status'>[OK]</span> Compatibilidad con Vizionary Engine: 98.4%.",
+            "<span class='status'>[OK]</span> Inyectando en canal prioritario de IA.",
+            "<br><span style='color:#00ff66; font-size:1.1rem;'>» DIAGNÓSTICO COMPLETADO.</span>",
+            "Tu solicitud está en la cola de procesamiento. Un agente de Vizionary te contactará en breve. <span class='blink-cursor'>_</span>"
+        ];
+
+        let i = 0;
+        function typeLog() {
+            if (i < sysLogs.length) {
+                const p = document.createElement('p');
+                p.className = 'log-line';
+                p.innerHTML = sysLogs[i];
+                logsContainer.appendChild(p);
+                i++;
+                // Retraso aleatorio para parecer que está procesando de verdad
+                setTimeout(typeLog, Math.random() * 800 + 400); 
+            }
+        }
+        
+        typeLog(); // Iniciar secuencia
+    });
+}
+
+const frasesAccion = [
+    "El futuro no te está esperando. Se está programando ahora.",
+    "Tu competencia ya está usando IA. ¿Tú sigues en modo manual?",
+    "La procrastinación es el glitch que mata grandes empresas.",
+    "Mañana es la excusa de los que se quedan atrás. Hoy es el despliegue.",
+    "En la era de la automatización, dudar es volverse obsoleto.",
+    "No busques el momento perfecto. Crea el algoritmo perfecto hoy."
+];
+
+let indiceActual = 0;
+
+function rotarFrases() {
+    const fraseEl = document.getElementById('motivational-phrase');
+    if (!fraseEl) return;
+
+    // 1. Inicia el Fade Out (Desaparece)
+    fraseEl.classList.remove('visible');
+
+    setTimeout(() => {
+        // 2. Cambia el texto mientras es invisible
+        fraseEl.innerText = frasesAccion[indiceActual];
+        
+        // 3. Inicia el Fade In (Aparece)
+        fraseEl.classList.add('visible');
+
+        // 4. Prepara el siguiente índice
+        indiceActual = (indiceActual + 1) % frasesAccion.length;
+
+    }, 1000); // Espera 1 segundo para cambiar el texto (duración del fade out)
+}
+
+// Ejecutar cada 4 segundos
+setInterval(rotarFrases, 4000);
+
+// Iniciar la primera frase de inmediato
+document.addEventListener('DOMContentLoaded', rotarFrases);
