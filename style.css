@@ -1,17 +1,23 @@
 /* ==========================================================
-   1. VARIABLES Y RESET
+   VIZIONARY - ESTILOS OPTIMIZADOS
    ========================================================== */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
 :root {
     --bg-dark: #000000;
-    --accent: #8a2be2; 
+    --accent: #8a2be2;
     --accent-glow: rgba(138, 43, 226, 0.5);
-    --neon-green: #25ff7c; 
+    --neon-green: #25ff7c;
     --green-glow: rgba(0, 255, 102, 0.4);
     --glass: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     --header-height: 80px;
+    --sat-panel-color: rgba(0, 255, 102, 0.2);
+    --sat-panel-border: #00ff66;
+    --sat-core-color: #1a1a1a;
+    --sat-light-red: #ff3333;
 }
 
 * {
@@ -33,8 +39,9 @@ body {
 }
 
 /* ==========================================================
-   2. CAPA DE FONDO, PARTÍCULAS Y SOL (Corrección de Capas)
+   CAPA DE FONDO Y PARTÍCULAS
    ========================================================== */
+
 #particles-js {
     position: fixed;
     width: 100%;
@@ -46,33 +53,16 @@ body {
     background-size: cover;
     background-position: center;
     background-color: #1d1c1c;
-    /* Aumentamos un poco el brillo base de la imagen */
     filter: brightness(1.1) contrast(1.1);
 }
 
-/* El canvas de las partículas debe estar por encima de la imagen */
 #particles-js canvas {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 2; 
+    z-index: 2;
 }
 
-/* La máscara del sol debe estar sobre las partículas para darles color horaria */
-#sun-light {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 3; 
-    pointer-events: none;
-    mix-blend-mode: overlay; 
-    transition: background 10s linear;
-}
-
-/* Capa de contraste para asegurar legibilidad */
-/* Capa de contraste CORREGIDA (Más clara y vibrante) */
 #particles-js::after {
     content: '';
     position: absolute;
@@ -80,29 +70,14 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* CAMBIO CLAVE: Usamos un radial gradient más suave y transparente al centro */
-    /* El centro (0%) es casi transparente, los bordes (100%) son un gris azulado sutil */
     background: radial-gradient(circle, rgba(50, 48, 48, 0.1) 0%, rgba(43, 59, 108, 0.5) 100%);
     z-index: -1;
 }
 
 /* ==========================================================
-   3. ESTRUCTURA DE CAPAS (Interacción)
+   HEADER
    ========================================================== */
-header, main, section, footer {
-    position: relative;
-    z-index: 10; /* Por encima del sol y partículas */
-    pointer-events: none; 
-}
 
-/* Asegurar que el contenido interactivo funcione */
-nav a, button, input, textarea, .card, .logo, .option-btn {
-    pointer-events: all !important;
-}
-
-/* ==========================================================
-   4. HEADER (Navegación)
-   ========================================================== */
 header {
     display: flex;
     justify-content: space-between;
@@ -127,6 +102,7 @@ header {
     background: linear-gradient(45deg, #ffffff, var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
     text-decoration: none;
 }
 
@@ -137,22 +113,23 @@ nav ul {
 }
 
 nav a {
-    color: #ffffff !important;
+    color: #ffffff;
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 nav a:hover {
-    color: var(--neon-green) !important;
+    color: var(--neon-green);
     text-shadow: 0 0 10px var(--green-glow);
 }
 
 /* ==========================================================
-   5. HERO SECTION
+   HERO SECTION
    ========================================================== */
+
 #hero {
     height: 100vh;
     display: flex;
@@ -161,11 +138,14 @@ nav a:hover {
     align-items: center;
     text-align: center;
     padding: 0 5%;
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
 }
 
 .phrase-top {
     font-size: 1rem;
-    color: var(--neon-green) !important;
+    color: var(--neon-green);
     text-transform: uppercase;
     letter-spacing: 5px;
     margin-bottom: 0.5rem;
@@ -173,7 +153,7 @@ nav a:hover {
     text-shadow: 0 0 15px var(--green-glow);
 }
 
-#hero h1 {
+#main-title {
     font-size: clamp(2.5rem, 7vw, 4.5rem);
     font-weight: 800;
     color: #ffffff;
@@ -181,6 +161,35 @@ nav a:hover {
     line-height: 1.1;
     margin-bottom: 2rem;
     text-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: 10;
+}
+
+#main-title span {
+    color: white;
+    transition: color 0.3s ease;
+    display: inline-block;
+}
+
+.word-active {
+    color: #00ff66 !important;
+    text-shadow: 0 0 20px #00ff66, 0 0 40px #00ff66;
+}
+
+.final-smoke-effect {
+    background: linear-gradient(45deg, #27c93f, #8a2be2, #00d4ff, #27c93f);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    animation: realSmoke 8s ease infinite;
+    filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.4)) contrast(1.5);
+}
+
+#hero p {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 2rem;
 }
 
 #btn-action {
@@ -190,9 +199,12 @@ nav a:hover {
     border: none;
     border-radius: 50px;
     font-weight: 800;
+    font-size: 1rem;
     cursor: pointer;
     box-shadow: 0 0 20px var(--accent-glow);
-    transition: 0.4s;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 10;
 }
 
 #btn-action:hover {
@@ -200,10 +212,176 @@ nav a:hover {
     box-shadow: 0 0 40px var(--accent-glow);
 }
 
+.demo-box {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    margin-top: 3rem;
+}
+
+.demo-box input {
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 25px;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.demo-box button {
+    padding: 0.8rem 1.5rem;
+    background: var(--neon-green);
+    color: #000;
+    border: none;
+    border-radius: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.demo-box button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--green-glow);
+}
+
+#code-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+    opacity: 0.4;
+}
+
 /* ==========================================================
-   6. SECCIÓN SERVICIOS (Cards Glassmorphism)
+   ALERT CONTAINER
    ========================================================== */
-#api-content { padding: 100px 10%; }
+
+.action-alert-container {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.fade-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    color: #ff2273;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+}
+
+/* ==========================================================
+   SATELITE EN ÓRBITA
+   ========================================================== */
+
+.satellite-orbit-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.satellite-modern {
+    width: 60px;
+    height: 60px;
+    animation: orbitSatellite 20s linear infinite;
+}
+
+.sat-core {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--sat-panel-border);
+    border-radius: 50%;
+    background: rgba(0, 255, 102, 0.1);
+}
+
+.sat-light-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--sat-light-red), transparent);
+    animation: pulseLight 2s ease-in-out infinite;
+}
+
+.sat-panel {
+    position: absolute;
+    background: var(--sat-panel-color);
+    border: 1px solid var(--sat-panel-border);
+}
+
+.sat-panel.left {
+    width: 15px;
+    height: 40px;
+    top: 10px;
+    left: -20px;
+    transform: rotate(-25deg);
+}
+
+.sat-panel.right {
+    width: 15px;
+    height: 40px;
+    top: 10px;
+    right: -20px;
+    transform: rotate(25deg);
+}
+
+.sat-antenna {
+    position: absolute;
+    width: 2px;
+    height: 35px;
+    background: var(--sat-panel-border);
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes orbitSatellite {
+    0% {
+        transform: rotate(0deg) translateX(45vw) rotate(0deg) scale(0.7);
+        opacity: 0.3;
+    }
+    100% {
+        transform: rotate(360deg) translateX(45vw) rotate(-360deg) scale(0.7);
+        opacity: 0.8;
+    }
+}
+
+@keyframes pulseLight {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* ==========================================================
+   SECCIÓN SERVICIOS
+   ========================================================== */
+
+#api-content {
+    padding: 100px 10%;
+    position: relative;
+    z-index: 10;
+}
 
 .section-title {
     font-size: 2.5rem;
@@ -225,7 +403,7 @@ nav a:hover {
     border-radius: 20px;
     padding: 2.5rem;
     text-align: center;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card:hover {
@@ -234,283 +412,27 @@ nav a:hover {
     box-shadow: 0 10px 30px rgba(0, 255, 102, 0.2);
 }
 
-.card-icon { font-size: 3.5rem; margin-bottom: 1.5rem; }
-.card h3 { margin-bottom: 1rem; color: var(--accent); font-weight: 800; }
-
-/* ==========================================================
-   7. CONTACTO Y RESPONSIVE
-   ========================================================== */
-.contact-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4rem;
-    justify-content: center;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem;
+.card-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
 }
 
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    background: var(--glass);
-    padding: 1.5rem;
-    border-radius: 15px;
-    border: 1px solid var(--glass-border);
+.card h3 {
     margin-bottom: 1rem;
+    color: var(--accent);
+    font-weight: 800;
 }
 
-#contact-form {
-    flex: 1;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-#contact-form input, #contact-form textarea {
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    border-radius: 10px;
-    color: white;
-}
-
-#btn-submit {
-    padding: 1rem;
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    nav ul { display: none; }
-    #hero h1 { font-size: 2.5rem; }
-    .contact-wrapper { flex-direction: column; }
+.small-text {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.5rem;
 }
 
 /* ==========================================================
-   WIDGET: SATÉLITE MODERNO EN ÓRBITA GLOBAL
-   ========================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
-:root {
-    --sat-panel-color: rgba(0, 255, 102, 0.2); /* Verde Neón Transparente */
-    --sat-panel-border: #00ff66; /* Verde Neón Brillante */
-    --sat-core-color: #1a1a1a;
-    --sat-light-red: #ff3333;
-}
-
-/* 2a. Contenedor de la Órbita (Ocupa toda la pantalla) */
-.satellite-orbit-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 5; /* Por encima de la Tierra, por debajo del texto */
-    pointer-events: none; /* No interrumpe los clics */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-/* 2b. El Satélite (Diseño Wireframe con Luces) */
-.satellite-modern {
-    position: absolute;
-    width: 60px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* La magia de la órbita elíptica */
-    animation: orbitarGlobal 25s linear infinite; 
-    filter: drop-shadow(0 0 10px var(--sat-panel-border));
-}
-
-/* Cuerpo Central */
-.sat-core {
-    width: 16px;
-    height: 16px;
-    background: var(--sat-core-color);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 2px;
-    position: relative;
-    z-index: 2;
-}
-
-/* Luz de Pulso Roja (Simulando transmisión) */
-.sat-light-pulse {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 4px;
-    height: 4px;
-    background: var(--sat-light-red);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--sat-light-red);
-    animation: pulsoSatelite 1.5s ease-in-out infinite;
-}
-
-/* Paneles Solares (Estilo Wireframe Neón) */
-.sat-panel {
-    width: 25px;
-    height: 12px;
-    background: var(--sat-panel-color);
-    border: 1px solid var(--sat-panel-border);
-    position: absolute;
-    z-index: 1;
-}
-
-.sat-panel.left {
-    left: -20px;
-    border-radius: 2px 0 0 2px;
-    transform: skewY(-5deg);
-}
-
-.sat-panel.right {
-    right: -20px;
-    border-radius: 0 2px 2px 0;
-    transform: skewY(5deg);
-}
-
-/* Antena (Detalle técnico) */
-.sat-antenna {
-    position: absolute;
-    top: -10px;
-    width: 1px;
-    height: 10px;
-    background: rgba(255,255,255,0.5);
-}
-
-.sat-antenna::after {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -1px;
-    width: 3px;
-    height: 3px;
-    background: #fff;
-    border-radius: 50%;
-}
-
-/* ==========================================================
-   ANIMACIONES (Órbita y Pulso)
+   SECCIÓN CONTACTO - TERMINAL
    ========================================================== */
 
-/* Animación de Pulso de Luz */
-@keyframes pulsoSatelite {
-    0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.8); }
-}
-
-/* La Gran Órbita Global Elíptica */
-@keyframes orbitarGlobal {
-    0% {
-        transform: rotate(0deg) translateX(45vw) rotate(0deg) scale(0.7);
-        opacity: 0.8;
-    }
-    25% {
-        /* Pasa por detrás de la Tierra (simulado con escala y opacidad) */
-        transform: rotate(90deg) translateX(30vw) rotate(-90deg) scale(0.5);
-        opacity: 0.4;
-    }
-    50% {
-        /* Reaparece por el otro lado */
-        transform: rotate(180deg) translateX(45vw) rotate(-180deg) scale(0.7);
-        opacity: 0.8;
-    }
-    75% {
-        /* Pasa por "delante" del usuario, más grande y brillante */
-        transform: rotate(270deg) translateX(55vw) rotate(-270deg) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: rotate(360deg) translateX(45vw) rotate(-360deg) scale(0.7);
-        opacity: 0.8;
-    }
-}
-
-#global-vizionary-container {
-    position: relative;
-    width: 100%;
-    height: 500px; /* Ajusta según necesites */
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    border: 1px solid var(--glass-border);
-    overflow: hidden;
-    margin: 50px 0;
-}
-
-#globe-gui {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 10;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.8rem;
-    background: rgba(0,0,0,0.5);
-    padding: 10px;
-    border-left: 2px solid var(--neon-green);
-    pointer-events: none;
-}
-
-#vizionary-globe {
-    cursor: grab;
-}
-
-#vizionary-globe:active {
-    cursor: grabbing;
-}
-
-#hero {
-    position: relative;
-    overflow: hidden;
-    background-color: #000; /* Asegura fondo negro tras el código */
-}
-
-#code-rain {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; /* Por delante de la imagen de la tierra si quieres, o -1 para detrás */
-    pointer-events: none;
-
-    /* EFECTO FADE: Desvanece el código arriba (0-20%) y abajo (80-100%) */
-    mask-image: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0) 0%, 
-        rgba(0,0,0,1) 20%, 
-        rgba(0,0,0,1) 80%, 
-        rgba(0,0,0,0) 100%
-    );
-    -webkit-mask-image: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0) 0%, 
-        rgba(0,0,0,1) 20%, 
-        rgba(0,0,0,1) 80%, 
-        rgba(0,0,0,0) 100%
-    );
-    opacity: 0.4; /* Ajusta para que no compita con la legibilidad del título */
-}
-
-/* Asegura que el texto esté sobre el canvas */
-#hero h1, #hero .phrase-top, #hero #btn-action, .system-widget {
-    position: relative;
-    z-index: 10;
-}
-
-/* ==========================================================
-   SECCIÓN CONTACTO: TERMINAL DE DIAGNÓSTICO
-   ========================================================== */
 .terminal-section {
     padding: 80px 5%;
     display: flex;
@@ -520,10 +442,16 @@ nav a:hover {
     z-index: 10;
 }
 
+.section-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 3rem;
+}
+
 .terminal-window {
     width: 100%;
     max-width: 700px;
-    background: rgba(10, 15, 20, 0.85); /* Oscuro azulado técnico */
+    background: rgba(10, 15, 20, 0.85);
     backdrop-filter: blur(15px);
     border: 1px solid rgba(0, 255, 102, 0.2);
     border-radius: 8px;
@@ -540,14 +468,24 @@ nav a:hover {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.mac-btns { display: flex; gap: 6px; margin-right: 15px; }
-.mac-btns .btn { width: 12px; height: 12px; border-radius: 50%; }
+.mac-btns {
+    display: flex;
+    gap: 6px;
+    margin-right: 15px;
+}
+
+.mac-btns .btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
 .btn.red { background: #ff5f56; }
 .btn.yellow { background: #ffbd2e; }
 .btn.green { background: #27c93f; }
 
 .terminal-header .title {
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.85rem;
     letter-spacing: 1px;
 }
@@ -557,20 +495,28 @@ nav a:hover {
     min-height: 250px;
 }
 
-/* Pasos del Formulario */
 .term-step {
     display: none;
     animation: fadeInTerm 0.3s ease forwards;
 }
-.term-step.active { display: block; }
+
+.term-step.active {
+    display: block;
+}
 
 @keyframes fadeInTerm {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .sys-msg {
-    color: #8a2be2; /* Morado eléctrico para el sistema */
+    color: #8a2be2;
     margin-bottom: 25px;
     font-weight: bold;
 }
@@ -582,12 +528,13 @@ nav a:hover {
 }
 
 .input-line label {
-    color: #00ff66; /* Verde Neón */
+    color: #00ff66;
     margin-bottom: 5px;
     font-size: 0.9rem;
 }
 
-.input-line input, .input-line select {
+.input-line input,
+.input-line select {
     background: transparent;
     border: none;
     border-bottom: 1px solid rgba(0, 255, 102, 0.3);
@@ -596,10 +543,11 @@ nav a:hover {
     font-size: 1rem;
     padding: 5px 0;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s ease;
 }
 
-.input-line input:focus, .input-line select:focus {
+.input-line input:focus,
+.input-line select:focus {
     border-bottom: 1px solid #00ff66;
 }
 
@@ -607,10 +555,17 @@ nav a:hover {
     color: #00ff66;
     cursor: pointer;
 }
-.input-line select option { background: #0a0f14; } /* Fondo oscuro para opciones */
 
-/* Botones Terminal */
-.btn-group { display: flex; gap: 15px; margin-top: 30px; }
+.input-line select option {
+    background: #0a0f14;
+    color: #fff;
+}
+
+.btn-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
 
 .btn-terminal {
     background: transparent;
@@ -620,94 +575,50 @@ nav a:hover {
     font-family: inherit;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     margin-top: 15px;
+    border-radius: 4px;
 }
 
-.btn-terminal:hover, .btn-terminal.highlight {
+.btn-terminal:hover,
+.btn-terminal.highlight {
     background: #00ff66;
     color: #000;
     box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
 }
 
 .btn-terminal.secondary {
-    border-color: rgba(255,255,255,0.3);
-    color: rgba(255,255,255,0.7);
-}
-.btn-terminal.secondary:hover {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
 }
 
-/* Logs de Procesamiento */
-.log-line {
+.btn-terminal.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    margin-bottom: 8px;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+.footer-simple {
+    padding: 40px 10%;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+    position: relative;
+    z-index: 10;
+}
+
+.contact-info p {
+    margin: 10px 0;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.9rem;
 }
-.log-line .status { color: #00ff66; }
-.log-line .warn { color: #ffbd2e; }
-.blink-cursor { animation: blink 1s infinite; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-.action-alert-container {
-    height: 60px; /* Espacio reservado para que no salte el contenido */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.fade-text {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.2rem;
-    color: #ff2273; /* Tu verde neón */
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    opacity: 0;
-    transition: opacity 1s ease-in-out; /* Duración del fade */
-    text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
-}
-
-.fade-text.visible {
-    opacity: 1;
-}
-
-.accent {
-    background: linear-gradient(45deg, #00dbde, #fc00ff);
-    -webkit-background-clip: text;
-    -webkit-text-fillColor: transparent;
-    font-weight: bold;
-}
-
-/* Estilo base de las palabras */
-#main-title span {
-    color: white;
-    transition: color 0.3s ease;
-    display: inline-block; /* Para que la animación se vea fluida */
-}
-
-/* Color verde de la cadena */
-.word-active {
-    color: #00ff66 !important; /* Un verde más neón */
-    text-shadow: 0 0 20px #00ff66, 0 0 40px #00ff66;
-}
-
-.final-smoke-effect {
-    background: linear-gradient(
-        45deg, 
-        #27c93f, #8a2be2, #00d4ff, #27c93f
-    );
-    background-size: 400% 400%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent !important;
-    animation: realSmoke 8s ease infinite;
-    /* Esto crea la sensación de "profundidad" de humo */
-    filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.4)) contrast(1.5);
-    position: relative;
-}
+/* ==========================================================
+   ANIMACIONES GLOBALES
+   ========================================================== */
 
 @keyframes realSmoke {
     0% { background-position: 0% 50%; transform: skewX(-1deg); }
@@ -715,8 +626,47 @@ nav a:hover {
     100% { background-position: 0% 50%; transform: skewX(-1deg); }
 }
 
-@keyframes smokeShift {
-    0% { background-position: 0% 50%; filter: brightness(1) contrast(1.2); }
-    50% { background-position: 100% 50%; filter: brightness(1.5) contrast(1.5); }
-    100% { background-position: 0% 50%; filter: brightness(1) contrast(1.2); }
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+    }
+
+    header {
+        padding: 0 5%;
+    }
+
+    #main-title {
+        font-size: 2rem;
+    }
+
+    #api-content {
+        padding: 60px 5%;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .container-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .terminal-window {
+        margin: 0 5%;
+    }
+
+    .demo-box {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .demo-box input,
+    .demo-box button {
+        width: 100%;
+    }
 }

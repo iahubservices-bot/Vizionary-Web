@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vizionary | Automatización e IA para Negocios</title>
     <meta name="description" content="Automatiza tu negocio con IA y SEO Local. Más ventas con tecnología Vizionary.">
+    <meta name="theme-color" content="#000000">
+    <title>Vizionary | Automatización e IA para Negocios</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div id="particles-js"></div>
+    
     <div class="satellite-orbit-container">
         <div class="satellite-modern">
             <div class="sat-core"><div class="sat-light-pulse"></div></div>
@@ -20,7 +21,7 @@
     </div>
 
     <header>
-        <div class="logo">VIZIONARY</div>    
+        <div class="logo">VIZIONARY</div>
         <p class="phrase-top">VIZIONARY ENGINE v3.1</p>
         <nav>
             <ul>
@@ -32,20 +33,7 @@
     </header>
 
     <main>
-        <section id="hero"><section id="audit-demo" class="hidden-module">
-    <div class="audit-container">
-        <div class="audit-header">
-            <span class="pulse-red">●</span> LIVE AI AUDIT SYSTEM v2.0
-        </div>
-        <div id="audit-terminal">
-            <p>> Esperando URL del objetivo...</p>
-        </div>
-        <div class="audit-input-group">
-            <input type="text" id="target-url" placeholder="https://tu-negocio.com">
-            <button id="start-audit-btn">ANALIZAR AHORA</button>
-        </div>
-    </div>
-</section>
+        <section id="hero">
             <div class="action-alert-container">
                 <p id="motivational-phrase" class="fade-text"></p>
             </div>
@@ -53,24 +41,19 @@
 
             <div class="hero-content">
                 <h1 id="main-title">
-    <span>Automatiza</span> <span>tu</span> <span>negocio</span> 
-    <span>con</span> <span class="accent-ia">IA</span> <span>y</span> 
-    <span>consigue</span> <span>clientes</span> <span>todos</span> 
-    <span>los</span> <span>días</span>
-</h1>
+                    <span>Automatiza</span> <span>tu</span> <span>negocio</span>
+                    <span>con</span> <span class="accent-ia">IA</span> <span>y</span>
+                    <span>consigue</span> <span>clientes</span> <span>todos</span>
+                    <span>los</span> <span>días</span>
+                </h1>
                 <p>AEO + GEO + CEO + IA = 🚀 más ventas sin esfuerzo</p>
-                <button id="btn-action" onclick="document.getElementById('contacto').scrollIntoView({behavior: 'smooth'})">Solicitar Demo</button>
+                <button id="btn-action">Solicitar Demo</button>
             </div>
-        </section>
 
-        <div class="demo-box">
-    <input type="text" id="user-website" placeholder="tu-empresa.com">
-    <button onclick="irADemo()">PROBAR SISTEMA GRATIS</button>
-    </div>
-        </section>
-
-        <section id="features">
-            <h2 class="section-title">Analiza tu negocio en segundos</h2>
+            <div class="demo-box">
+                <input type="text" id="user-website" placeholder="tu-empresa.com">
+                <button onclick="irADemo()">PROBAR SISTEMA GRATIS</button>
+            </div>
         </section>
 
         <section id="api-content">
@@ -103,15 +86,17 @@
         <section id="contacto" class="terminal-section">
             <h2 class="section-title">INICIAR PROTOCOLO</h2>
             <h3 class="section-subtitle">La IA analizará tu modelo de negocio tras la validación.</h3>
-            
+
             <div class="terminal-window">
                 <div class="terminal-header">
                     <div class="mac-btns">
-                        <span class="btn red"></span><span class="btn yellow"></span><span class="btn green"></span>
+                        <span class="btn red"></span>
+                        <span class="btn yellow"></span>
+                        <span class="btn green"></span>
                     </div>
                     <div class="title">admin@vizionary: ~/lead_capture</div>
                 </div>
-                
+
                 <div class="terminal-body">
                     <form id="ai-lead-form">
                         <div class="term-step active" id="step-1">
@@ -143,7 +128,8 @@
                             <p class="sys-msg">[SYSTEM] Defina vector de ataque.</p>
                             <div class="input-line">
                                 <label>root@client:~$ objetivo</label>
-                                <select id="lead-goal">
+                                <select id="lead-goal" required>
+                                    <option value="">Selecciona una opción</option>
                                     <option value="seo">SEO Local / Maps</option>
                                     <option value="automatizacion">Agentes IA</option>
                                     <option value="ui_ux">Diseño UI/UX</option>
