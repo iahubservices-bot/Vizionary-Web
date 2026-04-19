@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vizionary | Inteligencia Artificial</title>
+    <title>Vizionary | Automatización e IA para Negocios</title>
+    <meta name="description" content="Automatiza tu negocio con IA y SEO Local. Más ventas con tecnología Vizionary.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <div id="particles-js"></div>
     <div class="satellite-orbit-container">
         <div class="satellite-modern">
-            <div class="sat-core">
-                <div class="sat-light-pulse"></div>
-            </div>
+            <div class="sat-core"><div class="sat-light-pulse"></div></div>
             <div class="sat-panel left"></div>
             <div class="sat-panel right"></div>
             <div class="sat-antenna"></div>
         </div>
     </div>
 
-    <div id="particles-js"></div>
-
     <header>
         <div class="logo">VIZIONARY</div>    
-       <p class="phrase-top">VIZIONARY ENGINE v3.1</p>
+        <p class="phrase-top">VIZIONARY ENGINE v3.1</p>
         <nav>
             <ul>
                 <li><a href="#hero">Inicio</a></li>
@@ -34,14 +32,45 @@
     </header>
 
     <main>
-        <section id="hero">
+        <section id="hero"><section id="audit-demo" class="hidden-module">
+    <div class="audit-container">
+        <div class="audit-header">
+            <span class="pulse-red">●</span> LIVE AI AUDIT SYSTEM v2.0
+        </div>
+        <div id="audit-terminal">
+            <p>> Esperando URL del objetivo...</p>
+        </div>
+        <div class="audit-input-group">
+            <input type="text" id="target-url" placeholder="https://tu-negocio.com">
+            <button id="start-audit-btn">ANALIZAR AHORA</button>
+        </div>
+    </div>
+</section>
             <div class="action-alert-container">
-    <p id="motivational-phrase" class="fade-text"></p>
-</div>
+                <p id="motivational-phrase" class="fade-text"></p>
+            </div>
             <canvas id="code-rain"></canvas>
 
-            <h1>IA QUE TRANSFORMA TU EMPRESA</h1>
-            <button id="btn-action">EXPLORAR SISTEMA</button>
+            <div class="hero-content">
+                <h1 id="main-title">
+    <span>Automatiza</span> <span>tu</span> <span>negocio</span> 
+    <span>con</span> <span class="accent-ia">IA</span> <span>y</span> 
+    <span>consigue</span> <span>clientes</span> <span>todos</span> 
+    <span>los</span> <span>días</span>
+</h1>
+                <p>AEO + GEO + CEO + IA = 🚀 más ventas sin esfuerzo</p>
+                <button id="btn-action" onclick="document.getElementById('contacto').scrollIntoView({behavior: 'smooth'})">Solicitar Demo</button>
+            </div>
+        </section>
+
+        <div class="demo-box">
+    <input type="text" id="user-website" placeholder="tu-empresa.com">
+    <button onclick="irADemo()">PROBAR SISTEMA GRATIS</button>
+    </div>
+        </section>
+
+        <section id="features">
+            <h2 class="section-title">Analiza tu negocio en segundos</h2>
         </section>
 
         <section id="api-content">
@@ -64,105 +93,78 @@
                 </div>
                 <div class="card service-card">
                     <div class="card-icon">📍</div>
-                    <h3>AEO-GEO-SEO</h3>
+                    <h3>AEO - GEO - SEO</h3>
                     <p>Posicionamiento local estratégico para dominar tu mercado.</p>
-                    <p>Optimización de motor de respuesta: Chat GPT, Gemini y Google AI Overview.</p>
+                    <p class="small-text">Optimización para Chat GPT, Gemini y Google AI Overview.</p>
                 </div>
             </div>
         </section>
 
-                <section id="contacto" class="terminal-section">
-    <h2 class="section-title">INICIAR PROTOCOLO</h2>
-    <h3 class="section-subtitle">Completa el formulario para que la IA comience a analizar tu negocio.</h3>
-    
-    <div class="terminal-window">
-        <div class="terminal-header">
-            <div class="mac-btns">
-                <span class="btn red"></span>
-                <span class="btn yellow"></span>
-                <span class="btn green"></span>
-            </div>
-            <div class="title">admin@vizionary: ~/lead_capture</div>
-        </div>
-        
-        <div class="terminal-body">
-            <form id="ai-lead-form">
+        <section id="contacto" class="terminal-section">
+            <h2 class="section-title">INICIAR PROTOCOLO</h2>
+            <h3 class="section-subtitle">La IA analizará tu modelo de negocio tras la validación.</h3>
+            
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="mac-btns">
+                        <span class="btn red"></span><span class="btn yellow"></span><span class="btn green"></span>
+                    </div>
+                    <div class="title">admin@vizionary: ~/lead_capture</div>
+                </div>
                 
-                <div class="term-step active" id="step-1">
-                    <p class="sys-msg">[SYSTEM] Inicializando módulo de seguridad. Identifíquese.</p>
-                    <div class="input-line">
-                        <label>root@client:~$ nombre_completo</label>
-                        <input type="text" id="lead-name" required autocomplete="off" spellcheck="false">
-                    </div>
-                    <div class="input-line">
-                        <label>root@client:~$ email_corporativo</label>
-                        <input type="email" id="lead-email" required autocomplete="off" spellcheck="false">
-                    </div>
-                    <button type="button" class="btn-terminal" onclick="nextStep(1, 2)">EJECUTAR >_</button>
-                </div>
+                <div class="terminal-body">
+                    <form id="ai-lead-form">
+                        <div class="term-step active" id="step-1">
+                            <p class="sys-msg">[SYSTEM] Inicializando módulo de seguridad. Identifíquese.</p>
+                            <div class="input-line">
+                                <label>root@client:~$ nombre_completo</label>
+                                <input type="text" id="lead-name" required>
+                            </div>
+                            <div class="input-line">
+                                <label>root@client:~$ email_corporativo</label>
+                                <input type="email" id="lead-email" required>
+                            </div>
+                            <button type="button" class="btn-terminal" onclick="nextStep(1, 2)">EJECUTAR >_</button>
+                        </div>
 
-                <div class="term-step" id="step-2">
-                    <p class="sys-msg">[SYSTEM] Identidad verificada. Solicitando telemetría comercial...</p>
-                    <div class="input-line">
-                        <label>root@client:~$ url_proyecto (opcional)</label>
-                        <input type="text" id="lead-url" placeholder="ej: miempresa.com" autocomplete="off">
-                    </div>
-                    <div class="input-line">
-                        <label>root@client:~$ volumen_trafico_mensual</label>
-                        <select id="lead-traffic">
-                            <option value="bajo">0 - 1,000 visitas (Lanzamiento)</option>
-                            <option value="medio">1,000 - 10,000 visitas (Crecimiento)</option>
-                            <option value="alto">+10,000 visitas (Escala)</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn-terminal secondary" onclick="prevStep(2, 1)">< Volver</button>
-                        <button type="button" class="btn-terminal" onclick="nextStep(2, 3)">ANALIZAR >_</button>
-                    </div>
-                </div>
+                        <div class="term-step" id="step-2">
+                            <p class="sys-msg">[SYSTEM] Identidad verificada. Solicitando telemetría...</p>
+                            <div class="input-line">
+                                <label>root@client:~$ url_proyecto</label>
+                                <input type="text" id="lead-url" placeholder="miempresa.com">
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn-terminal secondary" onclick="prevStep(2, 1)">VOLVER</button>
+                                <button type="button" class="btn-terminal" onclick="nextStep(2, 3)">ANALIZAR >_</button>
+                            </div>
+                        </div>
 
-                <div class="term-step" id="step-3">
-                    <p class="sys-msg">[SYSTEM] Defina el vector de ataque principal para la IA.</p>
-                    <div class="input-line">
-                        <label>root@client:~$ objetivo_prioritario</label>
-                        <select id="lead-goal">
-                            <option value="seo">Dominancia en SEO Local (Google Maps)</option>
-                            <option value="automatizacion">Automatización con Agentes IA</option>
-                            <option value="ui_ux">Rediseño UI/UX de Alta Conversión</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn-terminal secondary" onclick="prevStep(3, 2)">< Volver</button>
-                        <button type="submit" class="btn-terminal highlight">INICIAR COMPILACIÓN</button>
-                    </div>
+                        <div class="term-step" id="step-3">
+                            <p class="sys-msg">[SYSTEM] Defina vector de ataque.</p>
+                            <div class="input-line">
+                                <label>root@client:~$ objetivo</label>
+                                <select id="lead-goal">
+                                    <option value="seo">SEO Local / Maps</option>
+                                    <option value="automatizacion">Agentes IA</option>
+                                    <option value="ui_ux">Diseño UI/UX</option>
+                                </select>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn-terminal secondary" onclick="prevStep(3, 2)">VOLVER</button>
+                                <button type="submit" class="btn-terminal highlight">COMPILAR ENVÍO</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+            </div>
+        </section>
 
-                <div class="term-step" id="step-processing">
-                    <div id="terminal-logs"></div>
-                </div>
-
-            </form>
-        </div>
-    </div>
-</section>
-
-<section id="contacto">
-            <h2 class="section-title">¿Listo para Automatizar?</h2>
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <div class="info-item">
-                        <span class="icon">📍</span>
-                        <p>Av. Javier Prado Este 488, Piso 19<br>San Isidro, Lima</p>
-                    </div>
-                    <div class="info-item">
-                        <span class="icon">📧</span>
-                        <p>ia.hubservices@gmail.com</p>
-                    </div>
-                    <div class="info-item">
-                        <span class="icon">📞</span>
-                        <p>+51 975 729 647</p>
-                    </div>
-                </div>
+        <footer class="footer-simple">
+            <div class="contact-info">
+                <p>📍 San Isidro, Lima | 📧 ia.hubservices@gmail.com | 📞 +51 975 729 647</p>
+                <p>© 2026 VIZIONARY AI ENGINE. Todos los derechos reservados.</p>
+            </div>
+        </footer>
     </main>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>

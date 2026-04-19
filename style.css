@@ -673,3 +673,50 @@ nav a:hover {
 .fade-text.visible {
     opacity: 1;
 }
+
+.accent {
+    background: linear-gradient(45deg, #00dbde, #fc00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fillColor: transparent;
+    font-weight: bold;
+}
+
+/* Estilo base de las palabras */
+#main-title span {
+    color: white;
+    transition: color 0.3s ease;
+    display: inline-block; /* Para que la animación se vea fluida */
+}
+
+/* Color verde de la cadena */
+.word-active {
+    color: #00ff66 !important; /* Un verde más neón */
+    text-shadow: 0 0 20px #00ff66, 0 0 40px #00ff66;
+}
+
+.final-smoke-effect {
+    background: linear-gradient(
+        45deg, 
+        #27c93f, #8a2be2, #00d4ff, #27c93f
+    );
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    animation: realSmoke 8s ease infinite;
+    /* Esto crea la sensación de "profundidad" de humo */
+    filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.4)) contrast(1.5);
+    position: relative;
+}
+
+@keyframes realSmoke {
+    0% { background-position: 0% 50%; transform: skewX(-1deg); }
+    50% { background-position: 100% 50%; transform: skewX(1deg); }
+    100% { background-position: 0% 50%; transform: skewX(-1deg); }
+}
+
+@keyframes smokeShift {
+    0% { background-position: 0% 50%; filter: brightness(1) contrast(1.2); }
+    50% { background-position: 100% 50%; filter: brightness(1.5) contrast(1.5); }
+    100% { background-position: 0% 50%; filter: brightness(1) contrast(1.2); }
+}
