@@ -1,0 +1,18 @@
+{
+  "name": "vizionary-api",
+  "version": "1.0.0",
+  "description": "API Backend para Vizionary Landing Page",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "mongodb": "^6.3.0",
+    "nodemailer": "^6.9.7",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  }
+}
