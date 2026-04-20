@@ -10,13 +10,10 @@
     {
       "src": "/api/(.*)",
       "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
-  ],
-  "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "ZAPIER_WEBHOOK_URL": "@zapier_webhook_url",
-    "SMTP_USER": "@smtp_user",
-    "SMTP_PASS": "@smtp_pass",
-    "API_KEY": "@api_key"
-  }
+  ]
 }
